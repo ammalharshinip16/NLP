@@ -1,0 +1,23 @@
+from transformers import GPT2LMHeadModel, GPT2TokenizerFast
+
+# Model name
+model_name = "distilgpt2"
+
+# Load the tokenizer and model
+tokenizer = GPT2TokenizerFast.from_pretrained(model_name)
+model = GPT2LMHeadModel.from_pretrained(model_name)
+
+# Define the prompt text
+prompt_text = "Once upon a time,"
+
+# Tokenize the input prompt
+input_ids = tokenizer.encode(prompt_text, return_tensors='pt')
+
+# Generate text based on the prompt
+output = model.generate(input_ids, max_length=100, num_return_sequences=1, temperature=0.7)
+
+# Decode the generated output to text
+generated_text = tokenizer.decode(output[0], skip_special_tokens=True)
+
+# Print the generated text
+print("Generated Text:\n", generated_text)
